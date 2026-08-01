@@ -120,13 +120,23 @@ a {
   font-size: 18px;
   letter-spacing: 0.18em;
   text-decoration: none;
-  color: var(--color-starlight);
-  filter: drop-shadow(0 0 8px rgba(105, 234, 253, 0.45));
+  background: linear-gradient(180deg, #ffffff 0%, #d8e7ff 35%, #6c9ad8 65%, #2a4a8a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter:
+    drop-shadow(0 0 6px rgba(105, 234, 253, 0.5))
+    drop-shadow(0 0 12px rgba(50, 69, 197, 0.4))
+    drop-shadow(0 1px 0 rgba(3, 4, 6, 0.85));
   transition: filter 140ms ease;
 }
 
 .nav-brand:hover {
-  filter: drop-shadow(0 0 12px rgba(105, 234, 253, 0.7));
+  filter:
+    drop-shadow(0 0 9px rgba(105, 234, 253, 0.7))
+    drop-shadow(0 0 18px rgba(50, 69, 197, 0.5))
+    drop-shadow(0 1px 0 rgba(3, 4, 6, 0.85));
 }
 
 .nav-links {
@@ -206,6 +216,47 @@ a {
   gap: 28px;
 }
 
+/* The slot takes no part in the hero's vertical centring: its own height and
+   the hero's gap are cancelled out, so the title/sub/button group sits exactly
+   where it does without a logo. The droplet is then painted into the free space
+   below the button, centred between it and the footer. */
+.hero-logo-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex: 0 0 auto;
+  height: 0;
+  margin-top: -28px;
+  overflow: visible;
+}
+
+.hero-logo {
+  display: block;
+  width: clamp(140px, 14vw, 180px);
+  height: auto;
+  /* Bounded against the viewport, not the parent: a percentage of an
+     auto-height flex parent resolves to zero and hides the logo. */
+  max-height: min(180px, 14vh);
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+  /* The source is a square photo whose bright mass (droplet + splash) sits at
+     x=0.488, y=0.655 — below the frame's geometric centre — so the image is
+     nudged up/right to put that centroid on the true centre line. */
+  /* The vertical term drops the droplet out of the text group's flow position
+     into the free space below the button, landing it midway between the button
+     and the footer. Fixed px: the gap it centres in is itself a fixed leftover
+     of the hero's padding, so a vh-based offset drifts as the window resizes. */
+  transform: translate(4.2%, calc(-7% + 118px));
+  /* Solid black background: screen blending drops it into the page. The mask is
+     an ellipse centred on that mass, tall enough to keep the bead chain. */
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(62% 78% at 49% 58%, #000 62%, transparent 97%);
+  mask-image: radial-gradient(62% 78% at 49% 58%, #000 62%, transparent 97%);
+  filter: drop-shadow(0 0 26px rgba(105, 234, 253, 0.22));
+}
+
 .hero-title {
   margin: 0;
   font-family: 'Audiowide', 'Space Grotesk', 'Inter', system-ui, sans-serif;
@@ -226,6 +277,23 @@ a {
 
 .hero-title--sm {
   font-size: clamp(31px, 5.95vw, 62px);
+}
+
+/* Absolutely positioned so the droplet contributes zero height to .hero's flex
+   layout — .hero is justify-content: center, so an in-flow image would grow the
+   stack and drag the title upward. Sized from the reference screenshot: the
+   droplet measured ~9.7% of viewport width. */
+.hero-drop {
+  position: absolute;
+  left: 50%;
+  top: 76%;
+  transform: translateX(-50%);
+  width: clamp(84px, 9.7vw, 150px);
+  height: auto;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+  filter: drop-shadow(0 0 22px rgba(105, 234, 253, 0.2));
 }
 
 .hero-sub {
