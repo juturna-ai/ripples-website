@@ -1,0 +1,13 @@
+# Build artifacts / installers — too large for git, distributed via releases
+downloads/
+*.exe
+*.dmg
+*.AppImage
+
+# Environment
+.env
+.env.*
+
+# OS cruft
+.DS_Store
+Thumbs.db
