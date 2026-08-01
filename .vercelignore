@@ -1,0 +1,22 @@
+# Vercel does not read .gitignore — this file controls the deploy upload.
+
+# Installers / build artifacts — exceed Vercel's 100 MB file limit.
+# Distribute these via GitHub Releases, not the site bundle.
+downloads/
+*.exe
+*.dmg
+*.AppImage
+
+# Docs and local tooling — not part of the deployed site
+_docs/
+tasks/
+*.md
+serve.sh
+
+# Environment
+.env
+.env.*
+
+# OS cruft
+.DS_Store
+Thumbs.db
