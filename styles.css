@@ -116,10 +116,19 @@ a {
   grid-column: 1;
   grid-row: 1;
   justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  transition: filter 140ms ease;
+}
+
+/* The gradient lives on the text span, not the anchor: background-clip: text on
+   a parent would clip the icon out of existence. */
+.nav-brand-text {
   font-family: 'Audiowide', 'Space Grotesk', 'Inter', system-ui, sans-serif;
   font-size: 18px;
   letter-spacing: 0.18em;
-  text-decoration: none;
   background: linear-gradient(180deg, #ffffff 0%, #d8e7ff 35%, #6c9ad8 65%, #2a4a8a 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -129,14 +138,31 @@ a {
     drop-shadow(0 0 6px rgba(105, 234, 253, 0.5))
     drop-shadow(0 0 12px rgba(50, 69, 197, 0.4))
     drop-shadow(0 1px 0 rgba(3, 4, 6, 0.85));
-  transition: filter 140ms ease;
 }
 
-.nav-brand:hover {
+/* Sits to the right of the wordmark. The source is a dark photo, so it is
+   lifted to read against the near-black bar. */
+.nav-brand-icon {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  flex: 0 0 auto;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: brightness(1.5) saturate(1.15)
+    drop-shadow(0 0 8px rgba(105, 234, 253, 0.45));
+}
+
+.nav-brand:hover .nav-brand-text {
   filter:
     drop-shadow(0 0 9px rgba(105, 234, 253, 0.7))
     drop-shadow(0 0 18px rgba(50, 69, 197, 0.5))
     drop-shadow(0 1px 0 rgba(3, 4, 6, 0.85));
+}
+
+.nav-brand:hover .nav-brand-icon {
+  filter: brightness(1.75) saturate(1.25)
+    drop-shadow(0 0 12px rgba(105, 234, 253, 0.65));
 }
 
 .nav-links {
@@ -277,23 +303,6 @@ a {
 
 .hero-title--sm {
   font-size: clamp(31px, 5.95vw, 62px);
-}
-
-/* Absolutely positioned so the droplet contributes zero height to .hero's flex
-   layout — .hero is justify-content: center, so an in-flow image would grow the
-   stack and drag the title upward. Sized from the reference screenshot: the
-   droplet measured ~9.7% of viewport width. */
-.hero-drop {
-  position: absolute;
-  left: 50%;
-  top: 76%;
-  transform: translateX(-50%);
-  width: clamp(84px, 9.7vw, 150px);
-  height: auto;
-  user-select: none;
-  -webkit-user-drag: none;
-  pointer-events: none;
-  filter: drop-shadow(0 0 22px rgba(105, 234, 253, 0.2));
 }
 
 .hero-sub {
