@@ -3,3 +3,5 @@ Please go back and verify all your work so far, make sure you used best coding p
 
 ## Aesthetic
 Please make <*****> Look more professional & aesthetic, look at what other top platforms are doing and do something similar, but improve it, make it look more userfriendly, more attractive, more professional. Make sure it is centered correctly. Please be creative and own it
+
+cd /home/morrison/projects/ripples/ripples-website && ./serve.sh
